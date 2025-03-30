@@ -1,0 +1,66 @@
+
+# Code Structure
+
+```
+./
+├── Makefile # Script to run the whole lab
+├── lab1.py # Gem5 script for a single run
+├── plot.py # Script to generate the plots
+├── retrieve.py # Script to retrieve the data from the stats.txt
+├── Arch_Lab01.pdf # Lab report
+├── [results] # Directory to store the results
+|   ├── [plots] # Directory to store the plots
+|   ├── [lab1-1] # Directory to store the results of task1.1
+|   ├── [lab1-2] # Directory to store the results of task2
+|   ├── [lab1-3] 
+|   ├── [lab1-4] 
+|   ├── [lab1-5] 
+├── README.md # here
+├── Eratosthenes # The binary of the program to be tested
+├── Eratosthenes.c # The source code of Eratosthenes
+├── sample_res # Sample results reserved for checking
+|   ├── ... Structure same as `./results`
+```
+`[xxx]` means it only exists when you at least run the codes for one time.
+
+
+# Prepare the env
+
+- gem5 22.1.0.0 build with X86-ISA
+- GNU make 4.2.1
+- matplotlib 3.7.5
+
+> If you want to install matplotlib without root permission, do as below.
+
+```
+curl -O https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py --user
+export PATH=$PATH:~/.local/bin
+pip --version
+pip install --user matplotlib
+```
+
+Then please the set the environment variable:
+``` 
+export GEM5_ROOT=<path_to_gem5_root>
+e.g.
+export GEM5_ROOT=/home/comparch48/gem5
+```
+
+# Run the codes
+Make sure the gem5 build ready and the environment variable is set.
+
+Then press the launch button!
+```
+make clean
+make run
+```
+
+You can get your results in the `./results` directory.
+**A copy is reserved for checking in `./sample_res`.**
+And the plots are in the `./results/plots` directory.
+**The original stats.txt is renamed to `<independent_variable>.txt`**
+
+
+You can also run `make plot` to generate the plots separately.
+
