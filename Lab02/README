@@ -1,0 +1,99 @@
+
+# Code Structure
+
+```
+./
+├── Makefile # Script to run the whole lab
+├── retrieve.py # Script to retrieve the data from the stats.txt
+├── Arch_Lab02.pdf # Lab report
+├── [res] # Directory to store the results
+|   ├── cmov-localbp # Directory to store the results of cmov with localBP
+|   ├── cmov-tournamentbp # Directory to store the results of cmov with tournamentBP
+|   ├── ncmov-localbp # Directory to store the results of ncmov with localBP
+|   ├── ncmov-tournamentbp # Directory to store the results of ncmov with tournamentBP
+├── pred # Directory to store the custom predictor
+|   ├── replay.cc # The source code of the custom predictor
+|   ├── replay.hh # The header file of the custom predictor
+|   ├── SConscript # The SConscript file of the custom predictor
+|   ├── BranchPredictor.py # The BranchPredictor.py file of the custom predictor
+├── bin # Directory to store the binaries from different platform
+|   ├── core
+|   |   ├── cmov-slow-i5 # The binary compiled on Core i5
+|   |   ├── ncmov-slow-i5 # The binary compiled on Core i5
+|   ├── xeon
+|   |   ├── cmov-slow-5118 # The binary compiled on Xeon 5118
+|   |   ├── ncmov-slow-5118 # The binary compiled on Xeon 5118
+├── README # here
+├── cmov # The binary of the program to be tested
+├── ncmov # The binary of the program to be tested
+├── cmov.c # The source code of test (gem5, 10000 iters)
+├── cmov.s # The assembly code of test
+├── cmov-slow # The binary of the program to be tested
+├── ncmov-slow # The binary of the program to be tested
+├── cmov-slow.c # The source code of test  (gem5, 1000000000 iters)
+├── cmov-slow.s # The assembly code of test
+├── sample_res # Sample results reserved for checking
+|   ├── ... Structure same as `./res` (trace.out and pipeview.out are not reserved, for they are too big)
+```
+`[xxx]` means it only exists when you at least run the codes for one time.
+
+
+# Prepare the env
+
+- gem5 22.1.0.0 build with X86-ISA
+- GNU make 4.2.1
+
+
+Then please the set the environment variable:
+``` 
+export GEM5_ROOT=<path_to_gem5_root>
+e.g.
+export GEM5_ROOT=/home/comparch48/gem5
+```
+
+# Run the codes
+Make sure the gem5 build ready and the environment variable is set.
+
+Then press the launch button!
+```
+make makeslow
+make makegem5
+make run-native
+make run-gem5
+make retrieve
+```
+
+You can get your results in the `./res` directory.
+**A copy is reserved for checking in `./sample_res`.**
+
+If you want to use the custom predictor, please run:
+(If the Makefile is not compatable on your machine, please run the commands manually.)
+```
+make register-new-pred
+make run-new-pred
+```
+
+If you want to check the assembly code, please run:
+```
+make dumpslow
+make dumpgem5
+```
+
+If you want to inspect the trace, please run:
+```
+less -r ./res/xxxxxxx/pipeview.out
+e.g.
+less -r ./res/ncmov-localbp/pipeview.out
+```
+
+If you want to clean the results, please run:
+```
+make clean-result
+```
+
+
+
+# Reference
+
+Custom Predictor Steps
+https://github.com/murattokez/gshare-gem5/blob/main/README.md
